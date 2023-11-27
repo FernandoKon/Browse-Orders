@@ -16,15 +16,7 @@
       "toolsId": "644107a3-7696-4842-bb51-eca0ab56f137"
     },
     "dataSources": {
-      "mainService": {
-        "uri": "/northwind/northwind.svc/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/metadata.xml",
-          "odataVersion": "2.0"
-        }
-      }
+      
     }
   },
   "sap.ui": {

@@ -1,7 +1,43 @@
 <mvc:View controllerName="com.lab2dev.browseorders.controller.Home"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
+    xmlns="sap.m"
+    height="100%">
+
+    <Page id="page" title="ORDERS" >
+        
+        <subHeader>
+        <OverflowToolbar>
+            <SearchField liveChange="onSearch" width="20%" />
+        </OverflowToolbar>
+        </subHeader>
+        <content>
+            <List
+                id="idList"
+                items="{orders>/}">
+                <ObjectListItem 
+                    title=" Order {orders>OrderID}"
+                    type="Active"
+                    press=""
+                    number="{
+                        path: 'orders>OrderDate',
+                        formatter: '.formatter.formatDate2'
+                    }">
+                    <firstStatus>
+                        <ObjectStatus
+                            text="{
+                                formatter: '.formatter.getStatusText',
+                                parameters: { ShippedDate: '{orders>ShippedDate}', OrderDate: '{orders>OrderDate}' }
+                            }"
+                            state="Success"
+                            />
+                    </firstStatus>
+                    <ObjectAttribute text="{orders>ShipName}"/>
+                    <ObjectAttribute text="Shipped: {
+                        path: 'orders>ShippedDate', 
+                        formatter: '.formatter.formatDate'
+                        }"/>
+                </ObjectListItem>
+            </List>
+        </content>
     </Page>
 </mvc:View>
