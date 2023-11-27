@@ -6,33 +6,42 @@ sap.ui.define([
     "sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
     "com/lab2dev/browseorders/model/formatter",
+    "com/lab2dev/browseorders/model/models"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, ODataModel, MessageBox, Filter, FilterOperator, formatter) {
+    function (Controller, JSONModel, ODataModel, MessageBox, Filter, FilterOperator, formatter, models) {
         "use strict";
 
         return Controller.extend("com.lab2dev.browseorders.controller.Home", {
             formatter: formatter,
 
             onInit: function () {
-                const oDataModel = new ODataModel("/northwind/northwind.svc/");
+                // const params = {
+                //     urlParameters: {
+                //         $expand: "Category"
+                //     }
+                // };
 
-                oDataModel.read("/Orders", {
-                    success: (oOrders) => {
-                        console.log(oOrders);
-                        const orders = oOrders.results;
+                const orders = models.getOrders();
 
-                        console.log(orders);
+                const list = this.byId("idList");
 
-                        const oModel = new JSONModel(orders);
-                        this.getView().setModel(oModel, 'orders');
-                    },
-                    error: (oError) => {
-                        MessageBox.error("Erro ao carregar os dados.")
-                    }
-                })
+                list.setBusy(true);
+
+                orders
+                    .then((oOrdersModel) => {
+                        this.getView().setModel(oOrdersModel, 'orders');
+
+                    })
+                    .catch((oError) => {
+                        MessageBox.error(oError);
+
+                    })
+                    .finally(() => {
+                        list.setBusy(false);
+                    });
             },
 
             onSearch: function(oEvent) {
@@ -48,6 +57,10 @@ sap.ui.define([
                 const oBinding = oList.getBinding("items");
                 oBinding.filter(aFilters);
                 
+            },
+
+            onNavTo: function(){
+                this.getOwnerComponent().getRouter().navTo("OrderDetails")
             },
 
         });

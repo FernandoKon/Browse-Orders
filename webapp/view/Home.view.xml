@@ -17,7 +17,7 @@
                 <ObjectListItem 
                     title=" Order {orders>OrderID}"
                     type="Active"
-                    press=""
+                    press="onNavTo"
                     number="{
                         path: 'orders>OrderDate',
                         formatter: '.formatter.formatDate2'

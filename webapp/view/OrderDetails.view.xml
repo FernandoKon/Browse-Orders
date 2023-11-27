@@ -1,0 +1,9 @@
+<mvc:xml controllerName="com.lab2dev.browseorders.controller.OrderDetails" 
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"    
+    xmlns="sap.m">
+    <Page id="OrderDetailsPage">
+        <OverflowToolbar design="Transparent" style="clear" height="5rem">
+		    <Title text="Order "/>
+	    </OverflowToolbar>
+    </Page>
+</mvc:xml>

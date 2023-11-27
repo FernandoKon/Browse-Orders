@@ -87,9 +87,16 @@
       "routes": [
         {
           "name": "RouteHome",
-          "pattern": ":?query:",
+          "pattern": "",
           "target": [
             "TargetHome"
+          ]
+        },
+        {
+          "name": "OrderDetails",
+          "pattern": "OrderDetails",
+          "target": [
+            "TargetOrderDetails"
           ]
         }
       ],
@@ -100,6 +107,13 @@
           "clearControlAggregation": false,
           "viewId": "Home",
           "viewName": "Home"
+        },
+        "TargetOrderDetails": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "OrderDetails",
+          "viewName": "OrderDetails"
         }
       }
     },
@@ -107,7 +121,7 @@
       "viewName": "com.lab2dev.browseorders.view.App",
       "type": "XML",
       "async": true,
-      "id": "App"
+      "id": "app"
     }
   }
 }
