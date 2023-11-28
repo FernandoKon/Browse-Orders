@@ -11,7 +11,7 @@ sap.ui.define([
  
           var oDateFormat = DateFormat.getDateInstance({
              style: "medium",
-             pattern: "dd 'de' MMM. 'de' yyyy"
+             pattern: "MMM dd',' yyyy"
           });
  
           return oDateFormat.format(oDate);

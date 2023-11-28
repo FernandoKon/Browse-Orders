@@ -8,7 +8,7 @@
         <f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title text="Orders"/>
+					<Title text="{= 'Orders (' + ${orders>/length} + ')' }"/>
 				</f:heading>
 			</f:DynamicPageTitle>
 		</f:title>

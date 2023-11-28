@@ -56,12 +56,12 @@ sap.ui.define([
                 const oBinding = oList.getBinding("items");
                 oBinding.filter(aFilters);
                 
-            },
+            },  
 
             onNavTo: function (oEvent) {
-                var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                var oSelectedItem = oEvent.getSource();
-                var sOrderID = oSelectedItem.getBindingContext("orders").getProperty("OrderID");
+                const oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                const oSelectedItem = oEvent.getSource();
+                const sOrderID = oSelectedItem.getBindingContext("orders").getProperty("OrderID");
             
                 oRouter.navTo("OrderDetails", {
                     OrderId: sOrderID
