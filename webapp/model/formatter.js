@@ -24,41 +24,47 @@ sap.ui.define([
 
             var oDateFormat = DateFormat.getDateInstance({
             style: "medium",
-            pattern: "dd'/'MM'/'yyyy"
+            pattern: "MM'/'dd'/'yyyy"
             });
 
             return oDateFormat.format(oDate);
         },
 
-        getStatusText: function (oShippedDate, oOrderDate) {
-            const shippedDate = new Date(oShippedDate);
-            const orderDate = new Date(oOrderDate);
+        getStatusText: function (sShippedDate, sRequiredDate) {
+            const oShippedDate = new Date(sShippedDate);
+            const oRequiredDate = new Date(sRequiredDate);
         
-            const shippedTime = shippedDate.getTime();
-            const orderTime = orderDate.getTime();    
-            
-            if (shippedTime - orderTime > 14) {
+            const timeDifference = oShippedDate.getTime() - oRequiredDate.getTime();
+            const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+        
+            if (daysDifference >= 5) {
                 return "In Time";
-            } else if (shippedTime - orderTime === 7) {
+            } else if (daysDifference < 5 && daysDifference >= 0) {
                 return "Urgent";
-            } else if (shippedTime - orderTime < 7) {
+            } else if (daysDifference < 0) {
                 return "Too Late";
             } else {
-                return "Invalid Date";
+                return "Undefined Date";
             }
         },
         
 
-       status :  function (sStatus) {
-        if (sStatus === "In Time") {
-            return "Success";
-        } else if (sStatus === "Urgent") {
-            return "Warning";
-        } else if (sStatus === "Too late"){
-            return "Error";
-        } else {
-            return "None";
-        }
+        status :  function (sShippedDate, sRequiredDate) {
+            const oShippedDate = new Date(sShippedDate);
+            const oRequiredDate = new Date(sRequiredDate);
+        
+            const timeDifference = oShippedDate.getTime() - oRequiredDate.getTime();
+            const daysDifference = timeDifference / (1000 * 60 * 60 * 24);
+            
+            if (daysDifference >= 5) {
+                return "Success";
+            } else if (daysDifference < 5 && daysDifference >= 0) {
+                return "Warning";
+            } else if (daysDifference < 0) {
+                return "Error";
+            } else {
+                return "None";
+            }
         },
     };
  });

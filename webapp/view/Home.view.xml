@@ -32,14 +32,25 @@
                         formatter: '.formatter.formatDate2'
                     }">
                     <firstStatus>
-                        <ObjectStatus
-                            text="{
-                                formatter: '.formatter.getStatusText',
-                                parameters: { ShippedDate: '{orders>ShippedDate}', OrderDate: '{orders>OrderDate}' }
-                            }"
-                            state="Success"
+                        <ObjectStatus 
+                            text='{
+                                "parts": [
+                                    {"path": "orders>ShippedDate"},
+                                    {"path": "orders>RequiredDate"}
+                                ],
+                                "formatter": ".formatter.getStatusText"
+                            }' 
+                            state='{
+                                "parts": [
+                                    {"path": "orders>ShippedDate"},
+                                    {"path": "orders>RequiredDate"}
+                                ],
+                                "formatter": ".formatter.status"
+                            }' 
                             />
                     </firstStatus>
+
+
                     <ObjectAttribute text="{orders>Customer/CompanyName}"/>
                     <ObjectAttribute text="Shipped: {
                         path: 'orders>ShippedDate', 
