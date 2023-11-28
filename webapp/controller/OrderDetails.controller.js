@@ -1,10 +1,13 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/model/odata/v2/ODataModel",
+    "com/lab2dev/browseorders/model/models"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller) {
+    function (Controller, JSONModel, ODataModel, models) {
         "use strict";
 
         return Controller.extend("com.lab2dev.browseorders.controller.OrderDetails", {
@@ -15,12 +18,12 @@ sap.ui.define([
             },
 
             _onRouteMatched: function (oEvent) {
-                const sOrderId = oEvent.getParameter("arguments").orderId;
+                const sOrderId = oEvent.getParameter("arguments").OrderId;
                 this.loadOrderDetails(sOrderId);
             },
 
             loadOrderDetails: function (sOrderId) {
-                const oModel = this.getView().getModel("orders");
+                const oModel = this.getView().setModel("orders");
                 
                 oModel.read("/Orders('" + sOrderId + "')", {
                     success: function (oData) {

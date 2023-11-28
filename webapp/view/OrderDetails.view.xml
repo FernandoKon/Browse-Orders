@@ -7,12 +7,12 @@
     
     <f:DynamicPage id="OrderDetailPage">
         <f:title>
-			<f:DynamicPageTitle>
-				<f:heading>
-					<Title text="Order "/>
-				</f:heading>
-			</f:DynamicPageTitle>
-		</f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <Title text="Order"/>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
 
         <f:header>
             <f:DynamicPageHeader pinnable="false">
@@ -32,6 +32,89 @@
                 </layout:HorizontalLayout>
             </f:DynamicPageHeader>
         </f:header>
+
+        <f:content>
+            <VBox>
+                <IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding" >
+                    <items>
+                        <IconTabFilter icon="sap-icon://shipping-status">
+                            <List 
+                                id="idListShip"
+                                title="Shipping Addres"
+                                items="{}">
+                                    <ObjectAttribute text="Name: "/>
+                                    <ObjectAttribute text="Street: "/>
+                                    <ObjectAttribute text="ZIP Code/City: "/>
+                                    <ObjectAttribute text="Region: "/>
+                                    <ObjectAttribute text="Country: "/>
+                            </List>
+                        </IconTabFilter>
+
+                        <IconTabFilter icon="sap-icon://employee">
+                            <List 
+                                id="idListEmployee"
+                                items="{}">
+                                    <ObjectAttribute text="Name: "/>
+                                    <ObjectAttribute text="Employee ID: "/>
+                                    <ObjectAttribute text="ZIP Code / City: "/>
+                                    <ObjectAttribute text="Job Title: "/>
+                                    <ObjectAttribute text="Phone: "/>
+                            </List>
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+
+                <Table
+                    id="idProductsTable"
+                    sticky="HeaderToolbar,ColumnHeaders"
+                    inset="false"
+                    items="{}"
+                    class="sapFDynamicPageAlignContent"
+                    width="auto">
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title text="Line Items" level="H2"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column width="12em">
+                            <Text text="Product" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true">
+                            <Text text="Unit Price" />
+                        </Column>
+                        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+                            <Text text="Quantity" />
+                        </Column>
+                        <Column hAlign="End">
+                            <Text text="Total" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <ObjectIdentifier title="" text=""/>
+                                <ObjectNumber
+                                    number="{
+                                        parts:[{path:'Price'},{path:'CurrencyCode'}],
+                                        type: 'sap.ui.model.type.Currency',
+                                        formatOptions: {showMeasure: false}
+                                    }"
+                                    unit="EUR" />
+                                <Text text="101010" />
+                                <ObjectNumber
+                                    number="{
+                                        parts:[{path:'Price'},{path:'CurrencyCode'}],
+                                        type: 'sap.ui.model.type.Currency',
+                                        formatOptions: {showMeasure: false}
+                                    }"
+                                    unit="EUR" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </f:content>
 
     </f:DynamicPage>
 </mvc:xml>

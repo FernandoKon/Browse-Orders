@@ -1,18 +1,15 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/model/odata/v2/ODataModel",
     "sap/m/MessageBox",
     "sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
     "com/lab2dev/browseorders/model/formatter",
     "com/lab2dev/browseorders/model/models",
-    'sap/ui/model/Sorter'
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, ODataModel, MessageBox, Filter, FilterOperator, formatter, models, Sorter) {
+    function (Controller, MessageBox, Filter, FilterOperator, formatter, models) {
         "use strict";
 
         return Controller.extend("com.lab2dev.browseorders.controller.Home", {
