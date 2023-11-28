@@ -5,10 +5,14 @@
 sap.ui.define([
         "sap/ui/core/UIComponent",
         "sap/ui/Device",
-        "com/lab2dev/browseorders/model/models"
+        "com/lab2dev/browseorders/model/models",
+        "sap/f/library",
+	    "sap/f/FlexibleColumnLayoutSemanticHelper"
     ],
-    function (UIComponent, Device, models) {
+    function (UIComponent, Device, models,  library, FlexibleColumnLayoutSemanticHelper) {
         "use strict";
+        
+        var LayoutType = library.LayoutType;
 
         return UIComponent.extend("com.lab2dev.browseorders.Component", {
             metadata: {
@@ -30,7 +34,19 @@ sap.ui.define([
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
             },
-
+            
+            // getHelper: function () {
+            //     var oFCL = this.getRootControl().byId("fcl"),
+            //         oParams = new URLSearchParams(window.location.search),
+            //         oSettings = {
+            //             defaultTwoColumnLayoutType: LayoutType.TwoColumnsMidExpanded,
+            //             defaultThreeColumnLayoutType: LayoutType.ThreeColumnsMidExpanded,
+            //             mode: oParams.get("mode"),
+            //             maxColumnsCount: oParams.get("max")
+            //         };
+    
+            //     return FlexibleColumnLayoutSemanticHelper.getInstanceFor(oFCL, oSettings);
+            // },
         });
     }
 );

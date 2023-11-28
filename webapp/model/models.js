@@ -41,6 +41,7 @@ sap.ui.define([
                 oDataModel
                     .then((oModel) => {
                         oModel.read("/Orders", {
+                            ...oURLParam,
                             success: (oData) => {
                                 resolve(new JSONModel(oData.results));
                             },

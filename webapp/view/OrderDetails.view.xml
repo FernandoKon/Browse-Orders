@@ -1,9 +1,37 @@
 <mvc:xml controllerName="com.lab2dev.browseorders.controller.OrderDetails" 
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"    
-    xmlns="sap.m">
-    <Page id="OrderDetailsPage">
-        <OverflowToolbar design="Transparent" style="clear" height="5rem">
-		    <Title text="Order "/>
-	    </OverflowToolbar>
-    </Page>
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    height="100%">
+    
+    <f:DynamicPage id="OrderDetailPage">
+        <f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Order "/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+
+        <f:header>
+            <f:DynamicPageHeader pinnable="false">
+                <layout:HorizontalLayout allowWrapping="true">
+
+                    <layout:VerticalLayout class="sapUiMediumMarginEnd">
+                        <ObjectAttribute title="Location" text="Warehouse A"/>
+                        <ObjectAttribute title="Halway" text="23L"/>
+                        <ObjectAttribute title="Rack" text="34"/>
+                    </layout:VerticalLayout>
+
+                    <layout:VerticalLayout>
+                        <ObjectAttribute title="Price"/>
+                        <ObjectAttribute text="100.000.000 EUR" />
+                    </layout:VerticalLayout>
+
+                </layout:HorizontalLayout>
+            </f:DynamicPageHeader>
+        </f:header>
+
+    </f:DynamicPage>
 </mvc:xml>

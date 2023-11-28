@@ -31,8 +31,8 @@ sap.ui.define([
         },
 
         getStatusText: function (sShippedDate, sOrderDate) {
-            const shippedDate = this.formatDate2(sShippedDate);
-            const orderDate = this.formatDate2(sOrderDate);
+            const shippedDate = new Date(sShippedDate);
+            const orderDate = new Date(sOrderDate)
         
             if (shippedDate === orderDate) {
                 return "In Time";

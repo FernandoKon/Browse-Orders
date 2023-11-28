@@ -1,19 +1,28 @@
 <mvc:View controllerName="com.lab2dev.browseorders.controller.Home"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m"
+    xmlns="sap.m" xmlns:f="sap.f"
     height="100%">
 
-    <Page id="page" title="ORDERS" >
+    <f:DynamicPage id="HomePage">
         
-        <subHeader>
-        <OverflowToolbar>
-            <SearchField liveChange="onSearch" width="20%" />
-        </OverflowToolbar>
-        </subHeader>
-        <content>
+        <f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Orders"/>
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+
+        <f:content>
             <List
                 id="idList"
                 items="{orders>/}">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <ToolbarSpacer/>
+                        <SearchField liveChange="onSearch" width="17.5rem"/>
+                    </OverflowToolbar>
+                </headerToolbar>
                 <ObjectListItem 
                     title=" Order {orders>OrderID}"
                     type="Active"
@@ -31,13 +40,13 @@
                             state="Success"
                             />
                     </firstStatus>
-                    <ObjectAttribute text="{orders>ShipName}"/>
+                    <ObjectAttribute text="{orders>Customer/CompanyName}"/>
                     <ObjectAttribute text="Shipped: {
                         path: 'orders>ShippedDate', 
                         formatter: '.formatter.formatDate'
                         }"/>
                 </ObjectListItem>
             </List>
-        </content>
-    </Page>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>
