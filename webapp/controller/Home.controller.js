@@ -67,15 +67,6 @@ sap.ui.define([
                     OrderId: sOrderID
                 });
             },
-            
-            
-            // onListItemPress: function (oEvent) {
-            //     console.log("OI")
-            //     var oNextUIState = this.getOwnerComponent().getHelper().getNextUIState(1),
-            //         orderPath = oEvent.getSource().getSelectedItem().getBindingContext("Orders").getPath(),
-            //         order = orderPath.split("/").slice(-1).pop();
-    
-            //     this.oRouter.navTo("OrderDetails", {layout: oNextUIState.layout, order: order});
-            // },
+
         });
     });

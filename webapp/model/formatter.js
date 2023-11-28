@@ -30,20 +30,24 @@ sap.ui.define([
             return oDateFormat.format(oDate);
         },
 
-        getStatusText: function (sShippedDate, sOrderDate) {
-            const shippedDate = new Date(sShippedDate);
-            const orderDate = new Date(sOrderDate)
+        getStatusText: function (oShippedDate, oOrderDate) {
+            const shippedDate = new Date(oShippedDate);
+            const orderDate = new Date(oOrderDate);
         
-            if (shippedDate === orderDate) {
+            const shippedTime = shippedDate.getTime();
+            const orderTime = orderDate.getTime();    
+            
+            if (shippedTime - orderTime > 14) {
                 return "In Time";
-            } else if (shippedDate < orderDate ) {
+            } else if (shippedTime - orderTime === 7) {
                 return "Urgent";
-            } else if (shippedDate > orderDate) {
+            } else if (shippedTime - orderTime < 7) {
                 return "Too Late";
             } else {
                 return "Invalid Date";
             }
         },
+        
 
        status :  function (sStatus) {
         if (sStatus === "In Time") {
