@@ -61,18 +61,19 @@ sap.ui.define([
 
         },
 
-        getOrderDetail: function () {
-            var oDataModel = this.getODataModel();
+        getOrderDetail: function (OrderID) {
+            const oDataModel = this.getODataModel();
 
             return new Promise((resolve,reject) => {
                 oDataModel
                     .then((oModel) => {
-                        oModel.read("/Orders(${orderID})", {
-                            urlParams: {
+                        oModel.read(`/Orders(${OrderID})`, {
+                            urlParameters: {
                                 $expand: "Customer,Order_Details/Product,Employee",
                             },
                             success: (oData) => {
-                                resolve(new JSONModel(oData.results));
+                                
+                                resolve(new JSONModel(oData));
                             },
                             error: (oError) => {
                                 reject(oError)

@@ -47,6 +47,14 @@ sap.ui.define([
                 return "Undefined Date";
             }
         },
+
+        setTotal: function (sPrice, nQuantity){
+            const nPrice = parseInt(sPrice)
+            
+            const total = nPrice*nQuantity
+            
+            return total
+        },
         
 
         status :  function (sShippedDate, sRequiredDate) {

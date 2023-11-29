@@ -28,18 +28,21 @@ sap.ui.define([
             },
 
             loadOrderDetails: function (sOrderId) {
-                const oModel = this.getView().getModel("orders");
                 
-                oModel.read("/Orders('" + sOrderId + "')", {
-                    success: function (oData) {
-                        // Manipular os dados da Order carregados com sucesso
-                        console.log(oData);
-                    },
-                    error: function (oError) {
-                        // Lidar com erros durante a leitura dos detalhes da Order
-                        console.error("Erro ao carregar detalhes da Order: " + oError);
-                    }
-                });
+                const orders = models.getOrderDetail(sOrderId)
+                
+                orders
+                    .then((oOrdersModel) => {
+                        this.getView().setModel(oOrdersModel, 'orders');
+
+                    })
+                    .catch((oError) => {
+                        MessageBox.error(oError);
+
+                    })
+                    .finally(() => {
+                        list.setBusy(false);
+                    });
             },
 
 

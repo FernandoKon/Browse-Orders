@@ -11,7 +11,7 @@
         <f:title>
             <f:DynamicPageTitle>
                 <f:heading>
-                    <Title text="Order"/>
+                    <Title text="Order {orders>/OrderID}"/>
                 </f:heading>
             </f:DynamicPageTitle>
         </f:title>
@@ -21,7 +21,7 @@
                 <layout:HorizontalLayout allowWrapping="true">
 
                     <layout:VerticalLayout class="sapUiMediumMarginEnd">
-                        <ObjectAttribute title="Location" text="Warehouse A"/>
+                        <ObjectAttribute title="Location" text="{Warehouse A}"/>
                         <ObjectAttribute title="Halway" text="23L"/>
                         <ObjectAttribute title="Rack" text="34"/>
                     </layout:VerticalLayout>
@@ -40,7 +40,7 @@
                 <IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding" >
                     <items>
                         <IconTabFilter icon="sap-icon://shipping-status">
-                                
+
                         </IconTabFilter>
 
                         <IconTabFilter icon="sap-icon://employee">
@@ -53,22 +53,22 @@
                     id="idProductsTable"
                     sticky="HeaderToolbar,ColumnHeaders"
                     inset="false"
-                    items="{}"
+                    items="{orders>/Order_Details/results}"
                     class="sapFDynamicPageAlignContent"
                     width="auto">
                     <headerToolbar>
                         <Toolbar>
-                            <Title text="Line Items" level="H2"/>
+                            <Title text="{= 'Line Items (' + ${orders>/Order_Details/results/length} + ')' }" level="H2"/>
                         </Toolbar>
                     </headerToolbar>
                     <columns>
                         <Column width="12em">
                             <Text text="Product" />
                         </Column>
-                        <Column minScreenWidth="Tablet" demandPopin="true">
+                        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
                             <Text text="Unit Price" />
                         </Column>
-                        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="End">
+                        <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center">
                             <Text text="Quantity" />
                         </Column>
                         <Column hAlign="End">
@@ -78,21 +78,21 @@
                     <items>
                         <ColumnListItem>
                             <cells>
-                                <ObjectIdentifier title="" text=""/>
+                                <ObjectIdentifier title="{orders>Product/ProductName}" />
                                 <ObjectNumber
                                     number="{
-                                        parts:[{path:'Price'},{path:'CurrencyCode'}],
-                                        type: 'sap.ui.model.type.Currency',
-                                        formatOptions: {showMeasure: false}
+                                        path: 'orders>UnitPrice'
                                     }"
                                     unit="EUR" />
-                                <Text text="101010" />
+                                <Text text="{orders>Quantity}" />
                                 <ObjectNumber
-                                    number="{
-                                        parts:[{path:'Price'},{path:'CurrencyCode'}],
-                                        type: 'sap.ui.model.type.Currency',
-                                        formatOptions: {showMeasure: false}
-                                    }"
+                                    number='{
+                                        "parts": [
+                                            {"path": "orders>UnitPrice"},
+                                            {"path": "orders>Quantity"}
+                                        ],
+                                        "formatter": ".formatter.setTotal"
+                                    }' 
                                     unit="EUR" />
                             </cells>
                         </ColumnListItem>
