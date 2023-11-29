@@ -47,9 +47,13 @@ sap.ui.define([
                 const aFilters = [];
                 const sQuery = oEvent.getSource().getValue();
                 if (sQuery && sQuery.length > 0) {
-                    const filterCustomer = new Filter({filters:[new Filter("Customer/CompanyName", FilterOperator.Contains, sQuery) , new Filter("OrderID", FilterOperator.EQ, sQuery)]});
-                    
-                    aFilters.push(filterCustomer);
+                    const filterOrders = new Filter({
+                        filters: [
+                            new Filter("Customer/CompanyName", FilterOperator.Contains, sQuery), 
+                            new Filter("OrderID", FilterOperator.EQ, sQuery)
+                        ]
+                    });
+                    aFilters.push(filterOrders);
                 }
 
                 // update list binding

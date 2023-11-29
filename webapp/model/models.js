@@ -72,7 +72,6 @@ sap.ui.define([
                                 $expand: "Customer,Order_Details/Product,Employee",
                             },
                             success: (oData) => {
-                                
                                 resolve(new JSONModel(oData));
                             },
                             error: (oError) => {
