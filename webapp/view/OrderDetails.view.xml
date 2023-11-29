@@ -3,6 +3,8 @@
     xmlns:f="sap.f"
     xmlns:layout="sap.ui.layout"
     xmlns="sap.m"
+    xmlns:ff="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
     height="100%">
     
     <f:DynamicPage id="OrderDetailPage">
@@ -38,28 +40,11 @@
                 <IconTabBar id="iconTabBar" class="sapUiResponsiveContentPadding" >
                     <items>
                         <IconTabFilter icon="sap-icon://shipping-status">
-                            <List 
-                                id="idListShip"
-                                title="Shipping Addres"
-                                items="{}">
-                                    <ObjectAttribute text="Name: "/>
-                                    <ObjectAttribute text="Street: "/>
-                                    <ObjectAttribute text="ZIP Code/City: "/>
-                                    <ObjectAttribute text="Region: "/>
-                                    <ObjectAttribute text="Country: "/>
-                            </List>
+                                
                         </IconTabFilter>
 
                         <IconTabFilter icon="sap-icon://employee">
-                            <List 
-                                id="idListEmployee"
-                                items="{}">
-                                    <ObjectAttribute text="Name: "/>
-                                    <ObjectAttribute text="Employee ID: "/>
-                                    <ObjectAttribute text="ZIP Code / City: "/>
-                                    <ObjectAttribute text="Job Title: "/>
-                                    <ObjectAttribute text="Phone: "/>
-                            </List>
+
                         </IconTabFilter>
                     </items>
                 </IconTabBar>

@@ -35,7 +35,7 @@ sap.ui.define([
         },
 
         getOrders: function (oURLParam) {
-            var oDataModel = this.getODataModel();
+            const oDataModel = this.getODataModel();
 
             return new Promise((resolve, reject) => {
                 oDataModel
@@ -55,6 +55,30 @@ sap.ui.define([
                     });
             });
 
-        }
+        },
+
+        getOrderDetail: function () {
+            var oDataModel = this.getODataModel();
+
+            return new Promise((resolve,reject) => {
+                oDataModel
+                    .then((oModel) => {
+                        oModel.read("/Orders(${orderID})", {
+                            urlParams: {
+                                $expand: "Customer,Order_Details/Product,Employee",
+                            },
+                            success: (oData) => {
+                                resolve(new JSONModel(oData.results));
+                            },
+                            error: (oError) => {
+                                reject(oError)
+                            }
+                        });
+                    }).catch((oError) => {
+                        reject(oError);
+                    })
+            })
+        },
+        
     };
 });
