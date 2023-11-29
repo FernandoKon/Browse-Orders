@@ -55,8 +55,17 @@ sap.ui.define([
                 const oList = this.byId("idList");
                 const oBinding = oList.getBinding("items");
                 oBinding.filter(aFilters);
+                this.updateOrderCount();
                 
             },  
+
+            updateOrderCount: function () {                 
+                const oList = this.getView().byId("idList");                
+                const oBinding = oList.getBinding("items");  
+                const iFilteredCount = oBinding.getLength();                
+                const oViewModel = this.getView().getModel('orders');                
+                oViewModel.setProperty("/numberOfOrders", iFilteredCount); 
+            },
 
             onNavTo: function (oEvent) {
                 const oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -67,6 +76,8 @@ sap.ui.define([
                     OrderId: sOrderID
                 });
             },
+
+            
 
         });
     });

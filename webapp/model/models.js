@@ -43,7 +43,11 @@ sap.ui.define([
                         oModel.read("/Orders", {
                             ...oURLParam,
                             success: (oData) => {
-                                resolve(new JSONModel(oData.results));
+                                const oDataOrders = oData.results
+                                const numberOfOrders = oDataOrders.length
+                                const oModel = new JSONModel(oDataOrders)
+                                oModel.setProperty("/numberOfOrders", numberOfOrders)
+                                resolve(oModel);
                             },
                             error: (oError) => {
                                 reject(oError);
