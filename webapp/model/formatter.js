@@ -55,6 +55,10 @@ sap.ui.define([
             
             return total
         },
+
+        setOrderTotal: function () {
+            
+        },
         
 
         status :  function (sShippedDate, sRequiredDate) {
