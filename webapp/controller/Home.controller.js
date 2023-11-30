@@ -7,11 +7,12 @@ sap.ui.define([
     "com/lab2dev/browseorders/model/models",
     'sap/m/library',
     'sap/ui/core/Fragment',
+    'sap/ui/model/Sorter',
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, MessageBox, Filter, FilterOperator, formatter, models, mLibrary, Fragment) {
+    function (Controller, MessageBox, Filter, FilterOperator, formatter, models, mLibrary, Fragment, Sorter) {
         "use strict";
 
         return Controller.extend("com.lab2dev.browseorders.controller.Home", {
@@ -42,6 +43,16 @@ sap.ui.define([
                     .finally(() => {
                         list.setBusy(false);
                     });
+
+                    this.mGroupFunctions = {
+                        CompanyName: function(oContext) {
+                            const name = oContext.getProperty("Customer/CompanyName");
+                            return {
+                                key: name,
+                                text: name
+                            };
+                        },
+                    };
 
             },
 
@@ -84,43 +95,85 @@ sap.ui.define([
                 });
             },
 
-            _getDialog : function () {
+            _getFilterDialog: function () {
                 var oView = this.getView();
-    
-                if (!this._pDialog) {
-                    this._pDialog = Fragment.load({
+            
+                if (!this._pFilterDialog) {
+                    this._pFilterDialog = Fragment.load({
                         id: oView.getId(),
-                        name: "com.lab2dev.browseorders.view.fragments.Dialog",
+                        name: "com.lab2dev.browseorders.view.fragments.FilterDialog",
                         controller: this
-                    }).then(function(oDialog){
+                    }).then(function (oDialog) {
                         oView.addDependent(oDialog);
                         return oDialog;
                     });
                 }
-                return this._pDialog;
+                return this._pFilterDialog;
             },
+            
+            _getGroupDialog: function () {
+                var oView = this.getView();
+            
+                if (!this._pGroupDialog) {
+                    this._pGroupDialog = Fragment.load({
+                        id: oView.getId(),
+                        name: "com.lab2dev.browseorders.view.fragments.GroupDialog",
+                        controller: this
+                    }).then(function (oDialog) {
+                        oView.addDependent(oDialog);
+                        return oDialog;
+                    });
+                }
+                return this._pGroupDialog;
+            },
+            
 
-            handleOpenDialogSearchContains: function () {
-                this._getDialog().then(function(oDialog) {
-                oDialog
-                    .setFilterSearchCallback(null)
-                    .setFilterSearchOperator(mLibrary.StringFilterOperator.Contains)
-                    .open();
+            openFilterDialog: function () {
+                this._getFilterDialog().then(function (oDialog) {
+                    oDialog
+                        .setFilterSearchCallback(null)
+                        .setFilterSearchOperator(mLibrary.StringFilterOperator.Contains)
+                        .open();
+                });
+            },
+            
+            openGroupDialog: function () {
+                this._getGroupDialog().then(function (oDialog) {
+                    oDialog
+                        .setFilterSearchCallback(null)
+                        .setFilterSearchOperator(mLibrary.StringFilterOperator.Contains)
+                        .open();
                 });
             },
 
-            // handleOpenDialogSearchWordsStartWith: function() {
-            //     this._getDialog().then(function(oDialog) {
-            //         oDialog
-            //             .setFilterSearchCallback(null)
-            //             .setFilterSearchOperator(mLibrary.StringFilterOperator.AnyWordStartsWith)
-            //             .open();
-            //     });
-            // },
-    
-            // caseSensitiveStringContains: function (sQuery, sItemText) {
-            //     return sItemText.indexOf(sQuery) > -1;
-            // },
+            resetGroupDialog: function(oEvent) {
+                this.groupReset =  true;
+            },
+
+            handleGroupDialogConfirm: function(oEvent) {
+                var oList = this.byId("idList");
+                var mParams = oEvent.getParameters();
+                var oBinding = oList.getBinding("items");
+                var sPath, bDescending=true, vGroup, aGroups = [];
+            
+                if (mParams.groupItem) {
+                    
+                    // User selected a group item
+                    sPath = mParams.groupItem.getKey();
+                    bDescending = mParams.groupDescending;
+                    vGroup = this.mGroupFunctions[sPath];
+                    aGroups.push(new Sorter(sPath, bDescending, vGroup));
+            
+                    // Apply the selected group settings
+                    oBinding.sort(aGroups);
+                } else if (this.groupReset) {
+                    // User reset the grouping
+                    oBinding.sort();
+                    this.groupReset = false;
+                }
+            }
+            
+            
 
         });
     });

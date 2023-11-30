@@ -1,10 +1,11 @@
 <core:FragmentDefinition
-		xmlns="sap.m"
-		xmlns:core="sap.ui.core">
-	<ViewSettingsDialog id="settingsDialog"
-			confirm="handleConfirm">
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog 
+		id="FilterDialog"
+		confirm="handleConfirm">
 		<filterItems>
-			<ViewSettingsFilterItem text="Products" key="1">
+			<ViewSettingsFilterItem text="Company Name" key="1">
 				<items>
 					<ViewSettingsItem text="Mouse DX20" key="1a" />
 					<ViewSettingsItem text="Optical mouse OX3" key="1b" />
