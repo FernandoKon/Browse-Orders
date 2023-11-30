@@ -46,20 +46,7 @@ sap.ui.define([
             } else {
                 return "Undefined Date";
             }
-        },
-
-        setTotal: function (sPrice, nQuantity){
-            const nPrice = parseInt(sPrice)
-            
-            const total = nPrice*nQuantity
-            
-            return total
-        },
-
-        setOrderTotal: function () {
-            
-        },
-        
+        },        
 
         status :  function (sShippedDate, sRequiredDate) {
             const oShippedDate = new Date(sShippedDate);
@@ -77,6 +64,18 @@ sap.ui.define([
             } else {
                 return "None";
             }
+        },
+        
+        setTotal: function (sPrice, nQuantity){
+            const nPrice = parseInt(sPrice)
+            
+            const total = nPrice*nQuantity
+            
+            return total
+        },
+
+        setOrderTotal: function () {
+            
         },
     };
  });

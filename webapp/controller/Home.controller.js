@@ -5,11 +5,13 @@ sap.ui.define([
 	"sap/ui/model/FilterOperator",
     "com/lab2dev/browseorders/model/formatter",
     "com/lab2dev/browseorders/model/models",
+    'sap/m/library',
+    'sap/ui/core/Fragment',
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, MessageBox, Filter, FilterOperator, formatter, models) {
+    function (Controller, MessageBox, Filter, FilterOperator, formatter, models, mLibrary, Fragment) {
         "use strict";
 
         return Controller.extend("com.lab2dev.browseorders.controller.Home", {
@@ -82,7 +84,43 @@ sap.ui.define([
                 });
             },
 
-            
+            _getDialog : function () {
+                var oView = this.getView();
+    
+                if (!this._pDialog) {
+                    this._pDialog = Fragment.load({
+                        id: oView.getId(),
+                        name: "com.lab2dev.browseorders.view.fragments.Dialog",
+                        controller: this
+                    }).then(function(oDialog){
+                        oView.addDependent(oDialog);
+                        return oDialog;
+                    });
+                }
+                return this._pDialog;
+            },
+
+            handleOpenDialogSearchContains: function () {
+                this._getDialog().then(function(oDialog) {
+                oDialog
+                    .setFilterSearchCallback(null)
+                    .setFilterSearchOperator(mLibrary.StringFilterOperator.Contains)
+                    .open();
+                });
+            },
+
+            // handleOpenDialogSearchWordsStartWith: function() {
+            //     this._getDialog().then(function(oDialog) {
+            //         oDialog
+            //             .setFilterSearchCallback(null)
+            //             .setFilterSearchOperator(mLibrary.StringFilterOperator.AnyWordStartsWith)
+            //             .open();
+            //     });
+            // },
+    
+            // caseSensitiveStringContains: function (sQuery, sItemText) {
+            //     return sItemText.indexOf(sQuery) > -1;
+            // },
 
         });
     });

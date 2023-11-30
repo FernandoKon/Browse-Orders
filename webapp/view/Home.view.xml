@@ -22,6 +22,7 @@
                     <OverflowToolbar>
                         <ToolbarSpacer/>
                         <SearchField liveChange="onSearch" width="17.5rem"/>
+                        <Button icon="sap-icon://filter" press="handleOpenDialogSearchContains"/>
                     </OverflowToolbar>
                 </headerToolbar>
                 <ObjectListItem 

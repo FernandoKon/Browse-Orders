@@ -30,7 +30,7 @@
 
                     <layout:VerticalLayout>
                         <ObjectAttribute title="Price"/>
-                        <ObjectAttribute text="{orders>/Price}EUR" />
+                        <ObjectAttribute text="1000 EUR" />
                     </layout:VerticalLayout>
 
                 </layout:HorizontalLayout>
@@ -73,7 +73,7 @@
                                     title="Processor Information"
                                     singleContainerFullSize="false" >
                                     <ff:content>
-                                        <core:Title text="Office" />
+                                        <core:Title text="Employee" />
                                         <Label text="Name" />
                                         <Text text="{orders>/Employee/FirstName} {orders>/Employee/LastName}" />
                                         <Label text="Employee ID" />
