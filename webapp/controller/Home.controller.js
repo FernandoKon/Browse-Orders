@@ -44,15 +44,16 @@ sap.ui.define([
                         list.setBusy(false);
                     });
 
-                    this.mGroupFunctions = {
-                        CompanyName: function(oContext) {
-                            const name = oContext.getProperty("Customer/CompanyName");
-                            return {
-                                key: name,
-                                text: name
-                            };
-                        },
-                    };
+                this.mGroupFunctions = {
+                    CompanyName: function(oContext) {
+                        const name = oContext.getProperty("Customer/CompanyName");
+                        return {
+                            key: name,
+                            text: name,
+                        };
+                    },
+                };
+                    
 
             },
 
@@ -151,27 +152,35 @@ sap.ui.define([
             },
 
             handleGroupDialogConfirm: function(oEvent) {
-                var oList = this.byId("idList");
-                var mParams = oEvent.getParameters();
-                var oBinding = oList.getBinding("items");
-                var sPath, bDescending=true, vGroup, aGroups = [];
+                const oList = this.byId("idList");
+                const mParams = oEvent.getParameters();
+                const oBinding = oList.getBinding("items");
+                const aSorters = [];
             
                 if (mParams.groupItem) {
-                    
                     // User selected a group item
-                    sPath = mParams.groupItem.getKey();
-                    bDescending = mParams.groupDescending;
-                    vGroup = this.mGroupFunctions[sPath];
-                    aGroups.push(new Sorter(sPath, bDescending, vGroup));
+                    const sPath = mParams.groupItem.getKey();
+                    const bDescending = mParams.groupDescending;
+                    const vGroup = this.mGroupFunctions[sPath];
             
                     // Apply the selected group settings
-                    oBinding.sort(aGroups);
+                    aSorters.push(new Sorter("Customer/CompanyName", bDescending, vGroup));
+                    oBinding.sort(aSorters);
+            
+                    // Use group method to group items based on the same CompanyName
+                    oBinding.group(aSorters);
+            
+                    // Update the list after grouping
+                    oBinding.refresh();
                 } else if (this.groupReset) {
                     // User reset the grouping
                     oBinding.sort();
+                    oBinding.refresh();
                     this.groupReset = false;
                 }
-            }
+            },
+            
+            
             
             
 

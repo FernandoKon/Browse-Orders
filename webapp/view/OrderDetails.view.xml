@@ -29,7 +29,7 @@
                     </layout:VerticalLayout>
 
                     <layout:VerticalLayout>
-                        <ObjectAttribute title="Price"/>
+                        <Label text="Price" />
                         <ObjectAttribute text="1000 EUR" />
                     </layout:VerticalLayout>
 
