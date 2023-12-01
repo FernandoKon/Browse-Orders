@@ -30,7 +30,7 @@
 
                     <layout:VerticalLayout>
                         <Label text="Price" />
-                        <ObjectAttribute text="1000 EUR" />
+                        <ObjectAttribute text="{orders>/sum} EUR." />
                     </layout:VerticalLayout>
 
                 </layout:HorizontalLayout>

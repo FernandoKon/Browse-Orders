@@ -72,6 +72,8 @@ sap.ui.define([
                                 $expand: "Customer,Order_Details/Product,Employee",
                             },
                             success: (oData) => {
+                                const sum = this.sumPrice(oData.Order_Details.results)
+                                oData.sum = sum
                                 resolve(new JSONModel(oData));
                             },
                             error: (oError) => {
@@ -83,6 +85,15 @@ sap.ui.define([
                     })
             })
         },
+
+        sumPrice: function(aProducts){
+            const totalAmount = aProducts.reduce((acc, actualValue) => {
+                      const productTotal = actualValue.Quantity * +actualValue.UnitPrice
+                      return acc + productTotal
+                   }, 0)
+                   return totalAmount.toFixed(2)
+        
+        }
         
     };
 });
