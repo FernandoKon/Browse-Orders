@@ -158,19 +158,15 @@ sap.ui.define([
                 const aSorters = [];
             
                 if (mParams.groupItem) {
-                    // User selected a group item
                     const sPath = mParams.groupItem.getKey();
                     const bDescending = mParams.groupDescending;
                     const vGroup = this.mGroupFunctions[sPath];
             
-                    // Apply the selected group settings
                     aSorters.push(new Sorter("Customer/CompanyName", bDescending, vGroup));
                     oBinding.sort(aSorters);
             
-                    // Use group method to group items based on the same CompanyName
                     oBinding.group(aSorters);
             
-                    // Update the list after grouping
                     oBinding.refresh();
                 } else if (this.groupReset) {
                     // User reset the grouping
