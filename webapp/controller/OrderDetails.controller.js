@@ -1,15 +1,14 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/ui/model/json/JSONModel",
-    "sap/ui/model/odata/v2/ODataModel",
     "com/lab2dev/browseorders/model/models",
     "com/lab2dev/browseorders/model/formatter",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ui/core/routing/History"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, ODataModel, models, formatter, MessageBox) {
+    function (Controller, models, formatter, MessageBox, History) {
         "use strict";
 
         return Controller.extend("com.lab2dev.browseorders.controller.OrderDetails", {
@@ -45,7 +44,18 @@ sap.ui.define([
                     });
             },
             
-            
+            onNavBack: function () {
+                const oHistory = History.getInstance();
+                const sPreviousHash = oHistory.getPreviousHash();
+                
+                if (sPreviousHash !== undefined) {
+                    window.history.go(-1);
+                } else {
+                    const oComponent = this.getOwnerComponent()
+                    const oRouter = oComponent.getRouter();
+                    oRouter.navTo("RouteHome", {}, true);
+                }
+            },
 
 
         });

@@ -88,7 +88,7 @@ sap.ui.define([
 
         sumPrice: function(aProducts){
             const totalAmount = aProducts.reduce((acc, actualValue) => {
-                      const productTotal = actualValue.Quantity * +actualValue.UnitPrice
+                      const productTotal = actualValue.Quantity * + actualValue.UnitPrice
                       return acc + productTotal
                    }, 0)
                    return totalAmount.toFixed(2)
